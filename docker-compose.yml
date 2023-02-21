@@ -1,0 +1,23 @@
+version: "3.5"
+services:
+  web-fe:
+    image: "${DOCKER_REGISTRY}/counter-fe:${TAG}"
+    ports:
+      - target: 5000
+        published: 5000
+    networks:
+      - counter-net
+    volumes:
+      - type: volume
+        source: counter-vol
+        target: /code
+  redis:
+    image: "redis:alpine"
+    networks:
+      counter-net:
+
+networks:
+  counter-net:
+
+volumes:
+  counter-vol:
